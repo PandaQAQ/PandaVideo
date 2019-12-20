@@ -21,8 +21,6 @@ class IjkCorePlayer : IPandaPlayer {
             ijkMediaPlayer?.reset()
         }
         ijkMediaPlayer?.let {
-            // 清除 dns 缓存
-            it.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "dns_cache_clear", 1)
             // 开启硬解码
             it.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1)
             it.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec-auto-rotate", 1)
@@ -31,31 +29,42 @@ class IjkCorePlayer : IPandaPlayer {
                 "mediacodec-handle-resolution-change",
                 1
             )
-            // 设置最大探测时间
-            it.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 100L)
-            // 设置播放前探测时间，设置为 1 达到秒开效果
-            it.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzeduration", 1)
-            // 设置缓冲区大小
-            it.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 1024 * 10)
-            // 设置重连次数
-            it.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "reconnect", 5)
-            // 允许拖动进度条
-            it.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1)
-            // 设置允许跳帧，保持画音同步
-            it.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 5)
+            // 清除 dns 缓存
+//            it.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "dns_cache_clear", 1)
+//            // 设置最大探测时间
+//            it.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 100L)
+//            // 设置播放前探测时间，设置为 1 达到秒开效果
+//            it.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzeduration", 1)
+//            // 设置缓冲区大小
+//            it.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 1024 * 10)
+//            // 设置重连次数
+//            it.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "reconnect", 5)
+//            // 允许拖动进度条
+//            it.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1)
+//            // 设置允许跳帧，保持画音同步
+//            it.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 5)
         }
     }
 
+    /**
+     * 设置播放 url
+     */
     override fun setUp(url: String) {
         // 先停止之前的播放,重置播放器
         ijkMediaPlayer?.stop()
         initPlayer()
     }
 
+    /**
+     * 设置播放进度
+     */
     override fun setSeek(seek: Long) {
-
+        ijkMediaPlayer?.seekTo(seek)
     }
 
+    /**
+     * 设置播放Surface
+     */
     override fun setSurface(surface: Surface) {
 
     }
